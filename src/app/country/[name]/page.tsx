@@ -42,10 +42,10 @@ const Country = ({ params: { name } }: Params) => {
           <article className="flex justify-between min-w-full p-10 bg-white rounded-xl">
 
             <section>
-              <h2 className="text-xl text-gray-800"><b>Capital:</b> {country[0].capital[0]}</h2>
-              <h2 className="text-xl text-gray-800"><b>Continente:</b> {country[0].region} - {country[0].subregion}</h2>
+              {country[0].capital && <h2 className="text-xl text-gray-800"><b>Capital:</b> {country[0].capital[0]}</h2>}
+              <h2 className="text-xl text-gray-800"><b>Continente:</b> {country[0].region} {country[0].subregion && ` - ${country[0].subregion}`}</h2>
               <h2 className="text-xl text-gray-800"><b>População:</b> {formatter.format(country[0].population)} </h2>
-              <h2 className="text-xl text-gray-800"><b>Línguas faladas:</b>
+              {country[0].languages && <h2 className="text-xl text-gray-800"><b>Línguas faladas:</b>
                 <div className="flex gap-1 mt-1">
                   {Object.values(country[0].languages).map((language, i) => (
                     <span
@@ -56,9 +56,9 @@ const Country = ({ params: { name } }: Params) => {
                     </span>
                   ))}
                 </div>
-              </h2>
+              </h2>}
             </section>
-            <div className="relative h-[275px] w-96 rounded-xl overflow-hidden">
+            <div className="relative h-[275px] w-96 rounded-xl overflow-hidden shadow-lg">
               <Image
                 src={country[0].flags.svg}
                 alt={"Bandeira"}

@@ -1,5 +1,5 @@
 export type Country = {
-  capital: string,
+  capital?: string,
   name: {
     common: string,
     official: string
@@ -17,7 +17,7 @@ export type Country = {
     alt: string
   },
   population: number,
-  languages: {
+  languages?: {
     [key: string]: string
   },
 }
