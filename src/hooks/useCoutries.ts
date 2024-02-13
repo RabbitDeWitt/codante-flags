@@ -9,22 +9,27 @@ const useCoutries = () => {
       .then(res => setCountries(res.data))
   }
 
-  const sortCountriesByName = (countries: Country[]) => {
-    countries.sort((a, b) => {
-      if (a.translations.por.common > b.translations.por.common) {
-        return 1
-      } else if (a.translations.por.common < b.translations.por.common) {
-        return -1
-      } else {
-        return 0
-      }
-    })
-  }
+  const countriesSortedByName = countries.sort((a, b) => {
+    const removerAcentos = (str: string) => {
+      return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    };
+
+    const countryA = removerAcentos(a.translations.por.common).toLowerCase();
+    const countryB = removerAcentos(b.translations.por.common).toLowerCase();
+
+    if (countryA > countryB) {
+      return 1
+    } else if (countryA < countryB) {
+      return -1
+    } else {
+      return 0
+    }
+  })
 
   return {
     countries,
     getCountries,
-    sortCountriesByName
+    countriesSortedByName
   }
 }
 
