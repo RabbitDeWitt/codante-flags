@@ -15,5 +15,9 @@ export type Country = {
   flags: {
     svg: string,
     alt: string
-  }
+  },
+  population: number,
+  languages: {
+    [key: string]: string
+  },
 }

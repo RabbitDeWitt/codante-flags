@@ -1,12 +1,23 @@
-import { Country } from "@/app/types/country"
+import { Country } from "@/types/country"
 import axios from "axios"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 
 const useCoutries = () => {
+  const BASE_URL = 'https://restcountries.com/v3.1'
+
   const [countries, setCountries] = useState<Country[]>([])
+
+  const [country, setCountry] = useState<Country[]>([])
+
+
   const getCountries = async () => {
-    axios.get(`https://restcountries.com/v3.1/all`)
+    axios.get(`${BASE_URL}/all`)
       .then(res => setCountries(res.data))
+  }
+
+  const getCountryByName = async (country: string) => {
+    axios.get(`${BASE_URL}/name/${country}`)
+      .then(res => setCountry([...res.data]))
   }
 
   const countriesSortedByName = countries.sort((a, b) => {
@@ -27,8 +38,9 @@ const useCoutries = () => {
   })
 
   return {
-    countries,
+    country,
     getCountries,
+    getCountryByName,
     countriesSortedByName
   }
 }
