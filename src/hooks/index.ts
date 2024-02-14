@@ -1,5 +1,5 @@
-import useCoutries from "./useCoutries";
+import useCountries from "./useCountries";
 
 export {
-  useCoutries
+  useCountries
 }

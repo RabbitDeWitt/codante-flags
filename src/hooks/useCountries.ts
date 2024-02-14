@@ -2,7 +2,7 @@ import { Country } from "@/types/country"
 import axios from "axios"
 import { useState } from "react"
 
-const useCoutries = () => {
+const useCountries = () => {
   const BASE_URL = 'https://restcountries.com/v3.1'
 
   const [countries, setCountries] = useState<Country[]>([])
@@ -37,12 +37,19 @@ const useCoutries = () => {
     }
   })
 
+  let borders = country.length && country[0].borders ? country[0].borders.map(border => {
+    const borderCountry = countries.find(country => country.cca3 === border)
+    return borderCountry !== undefined ? borderCountry : null
+  }) : []
+
   return {
+    countries,
     country,
     getCountries,
     getCountryByName,
-    countriesSortedByName
+    countriesSortedByName,
+    borders
   }
 }
 
-export default useCoutries
+export default useCountries

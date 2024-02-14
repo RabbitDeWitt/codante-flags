@@ -1,6 +1,7 @@
 'use client'
 
-import { useCoutries } from "@/hooks"
+import { Card } from "@/components"
+import { useCountries } from "@/hooks"
 import Image from "next/image"
 import Link from "next/link"
 import { useEffect } from "react"
@@ -12,11 +13,12 @@ type Params = {
 }
 
 const Country = ({ params: { name } }: Params) => {
-  const { getCountryByName, country } = useCoutries()
+  const { getCountryByName, country, borders, getCountries } = useCountries()
 
   const formatter = Intl.NumberFormat('en', { notation: 'compact' })
 
   useEffect(() => {
+    getCountries()
     getCountryByName(name)
   }, [])
 
@@ -67,6 +69,22 @@ const Country = ({ params: { name } }: Params) => {
               />
             </div>
           </article>
+          <section>
+            <h3 className="mt-12 text-2xl font-semibold text-gray-800">Países que fazem fronteira</h3>
+            <div className="container w-full grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2">
+              {!borders.length ? (
+                <h2>Esse pais não faz fronteira com outro pais.</h2>
+              ) : (
+                borders.map((country, i) => (
+                  country !== null &&
+                  <Card
+                    key={i}
+                    country={country}
+                  />
+                ))
+              )}
+            </div>
+          </section>
         </>
 
       )}

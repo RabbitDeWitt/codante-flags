@@ -1,13 +1,11 @@
 'use client'
 
 import { Card } from "@/components";
-import { useCoutries } from "@/hooks";
-import Image from "next/image";
+import { useCountries } from "@/hooks";
 import { useEffect } from "react";
 
-
 export default function Home() {
-  const { getCountries, countriesSortedByName } = useCoutries()
+  const { getCountries, countriesSortedByName } = useCountries()
   useEffect(() => {
     getCountries()
   }, [])
